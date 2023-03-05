@@ -4,6 +4,8 @@
     Author     : whoangel
 --%>
 
+<%@page import="java.sql.*"%>
+<%@page import="com.mysql.jdbc.Driver" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -11,48 +13,61 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
         <link href="https://raw.githubusercontent.com/necolas/normalize.css/master/normalize.css" rel="stylesheet"/>
-        <title>JSP Page</title>
-
+        <title>Lista de empleados</title>
     </head>
     <body>  
+        <%
+            Connection conn = null;
+            Statement st = null;
+            ResultSet rs = null;
+            String url = "jdbc:mysql://localhost:3306/cursojava";
+            String user = "root";
+            String pass = "admin";
+        %>
         <div class="container mt-5 mx-auto">
             <div class="row">
                 <div class="col-sm">
-                    <form action="index.jsp" method="post">
-                        <div class="form-group">
-                            <label for="name">Nombre:</label>
-                            <input type="text" class="form-control" id="name" name="name">
-                        </div>
-                        <div class="form-group">
-                            <label for="edad">Edad:</label>
-                            <input type="number" class="form-control" name="edad">
-                        </div>
-                        <button type="submit" class="btn btn-primary" type="button">Enviar</button>
-                        
-                    </form>
+                    <table class="table table-hover table-sm">
+                        <thead>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Direccion</th>
+                                <th scope="col">telefono</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <%
+                                try {
+
+                                    Class.forName("com.mysql.jdbc.Driver");
+                                    conn = DriverManager.getConnection(url, user, pass);
+                                    st = conn.createStatement();
+                                    String sql = "SELECT * FROM cursojava.empleados;";
+                                    rs = st.executeQuery(sql);
+                                    while (rs.next()) {
+                            %>
+                            <tr>
+                                <th scope="row"> <%= rs.getString(1)%></th>
+                                <td><%= rs.getString(2)%></td>
+                                <td><%= rs.getString(3)%></td>
+                                <td><%= rs.getString(4)%></td>
+                            </tr>
+                            <%
+                                    }
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            %>
+
+
+                        </tbody>
+                    </table>
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm">
-                    <div class="alert alert-primary" role="alert">
-                        <%
-                            String nombre = request.getParameter("name");
-                            String edad = request.getParameter("edad");
-                            if (nombre != null && edad != null) {
-                                int edadNum = Integer.parseInt(edad);
-                                String mensajeEdad;
-                                if (edadNum >= 18) {
-                                    mensajeEdad = "Eres menor de edad";
-                                } else {
-                                    mensajeEdad = "Eres menor de edad";
-                                }
-                                String saludar = "Hola " + nombre+"\n"+mensajeEdad;
-                                out.println(saludar);
-                            } else {
-                                out.println("Ingrese datos");
-                            }
-                        %>
-                    </div>
+
                 </div>
             </div>
         </div>
