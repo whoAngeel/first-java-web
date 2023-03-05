@@ -31,7 +31,7 @@
         <div class="container mt-5 mx-auto w-75">
             <div class="row mb-2 mx-auto">
                 <!-- Button trigger modal -->
-                <a href="crear.jsp" type="button" class="btn btn-primary w-auto">
+                <a href="crear.jsp" type="button" class="btn btn-primary w-100">
                     Agregar usuario
                 </a>
 
@@ -72,7 +72,11 @@
                                 <td><%= rs.getString(4)%></td>
                                 <td>
                                     <div class="d-flex justify-content-around">
-                                        <i class="btn btn-primary fa-solid fa-user-pen"></i>
+                                        <a href="Editar.jsp?id=<%=rs.getString(1)%>"
+                                           class="btn btn-primary">
+                                            <i class=" fa-solid fa-user-pen"></i>    
+                                        </a>
+
                                         <i class="btn btn-danger fa-solid fa-user-minus"></i>
                                     </div>
                                 </td>
