@@ -28,60 +28,12 @@
             String user = "root";
             String pass = "admin";
         %>
-        <div class="container mt-5 mx-auto">
+        <div class="container mt-5 mx-auto w-75">
             <div class="row mb-2 mx-auto">
                 <!-- Button trigger modal -->
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                <a href="crear.jsp" type="button" class="btn btn-primary w-auto">
                     Agregar usuario
-                </button>
-
-                <!-- Modal -->
-                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar Usuario</h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <form>
-                                    <div class="mb-3">
-                                        <label for="nombre"
-                                               class="col-form-label">Nombre: </label>
-                                        <input type="text" 
-                                               class="form-control" 
-                                               id="nombre"
-                                               name="nombre"
-                                               placeholder="Nombre">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="direccion"
-                                               class="col-form-label">Direccion </label>
-                                        <input type="text" 
-                                               class="form-control" 
-                                               id="direccion"
-                                               name="direccion"
-                                               placeholder="Direccion">
-                                    </div> 
-                                    <div class="mb-3">
-                                        <label for="telefono"
-                                               class="col-form-label">Telefono </label>
-                                        <input type="text" 
-                                               class="form-control" 
-                                               id="telefono"
-                                               name="telefono"
-                                               placeholder="Telefono">
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Salir</button>
-                                        <button type="submit" class="btn btn-primary">Guardar usuario</button>
-                                    </div>
-                                </form>
-                            </div>
-                            
-                        </div>
-                    </div>
-                </div>
+                </a>
 
             </div>
             <div class="row">
