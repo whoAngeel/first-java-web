@@ -27,6 +27,13 @@
             String url = "jdbc:mysql://localhost:3306/cursojava";
             String user = "root";
             String pass = "admin";
+            try {
+                Class.forName("com.mysql.jdbc.Driver");
+                conn = DriverManager.getConnection(url, user, pass);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
         %>
         <div class="container mt-5 mx-auto w-75">
             <div class="row mb-2 mx-auto">
@@ -55,11 +62,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <%
-                                try {
-
-                                    Class.forName("com.mysql.jdbc.Driver");
-                                    conn = DriverManager.getConnection(url, user, pass);
+                            <%                                try {
                                     st = conn.createStatement();
                                     String sql = "SELECT * FROM cursojava.empleados;";
                                     rs = st.executeQuery(sql);
@@ -76,8 +79,13 @@
                                            class="btn btn-primary">
                                             <i class=" fa-solid fa-user-pen"></i>    
                                         </a>
+                                        <a href="Borrar.jsp?id=<%=rs.getString(1)%>"
+                                           type="button" 
+                                           class="btn btn-danger">
+                                            <i class=" fa-solid fa-user-minus"></i>
+                                        </a>
 
-                                        <i class="btn btn-danger fa-solid fa-user-minus"></i>
+
                                     </div>
                                 </td>
                             </tr>
