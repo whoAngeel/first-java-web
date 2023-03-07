@@ -4,6 +4,7 @@
     Author     : whoangel
 --%>
 
+<%@page import="com.angel.javaweb.UConexion"%>
 <%@page import="java.sql.*"%>
 <%@page import="com.mysql.jdbc.Driver" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -21,67 +22,41 @@
     </head>
     <body>  
         <%
-            Connection conn = null;
+            HttpSession sesion = request.getSession();
+            if (sesion.getAttribute("logueado").equals("0") || session.getAttribute("logueado") == null) {
+                response.sendRedirect("Login.jsp");
+            }
+            Connection conn = UConexion.getConnection();
             Statement st = null;
             ResultSet rs = null;
             String url = "jdbc:mysql://localhost:3306/cursojava";
             String user = "root";
             String pass = "admin";
+
+
         %>
-        <div class="container mt-5 mx-auto">
+        <nav class="navbar bg-body-tertiary bg-light ">
+            <div class="container-fluid justify-content-around">
+                <a class="navbar-brand">Empleados</a>
+                <form class="d-flex justify-content-around align-items-center" 
+                      role="search"
+                      action="Logout.jsp">
+                    <a href="DatosUsuario.jsp" class="d-flex pr-3 fs-3">
+                        <i class="fa-solid fa-user-ninja"></i>
+                    </a>
+                    <label class="px-3">
+                        <%= sesion.getAttribute("user")%>
+                    </label>
+                    <button class="btn btn-danger ml-3" type="submit">Cerrar sesión</button>
+                </form>
+            </div>
+        </nav>
+        <div class="container mt-5 mx-auto w-75">
             <div class="row mb-2 mx-auto">
                 <!-- Button trigger modal -->
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                <a href="crear.jsp" type="button" class="btn btn-primary w-100">
                     Agregar usuario
-                </button>
-
-                <!-- Modal -->
-                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar Usuario</h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <form>
-                                    <div class="mb-3">
-                                        <label for="nombre"
-                                               class="col-form-label">Nombre: </label>
-                                        <input type="text" 
-                                               class="form-control" 
-                                               id="nombre"
-                                               name="nombre"
-                                               placeholder="Nombre">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="direccion"
-                                               class="col-form-label">Direccion </label>
-                                        <input type="text" 
-                                               class="form-control" 
-                                               id="direccion"
-                                               name="direccion"
-                                               placeholder="Direccion">
-                                    </div> 
-                                    <div class="mb-3">
-                                        <label for="telefono"
-                                               class="col-form-label">Telefono </label>
-                                        <input type="text" 
-                                               class="form-control" 
-                                               id="telefono"
-                                               name="telefono"
-                                               placeholder="Telefono">
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Salir</button>
-                                        <button type="submit" class="btn btn-primary">Guardar usuario</button>
-                                    </div>
-                                </form>
-                            </div>
-                            
-                        </div>
-                    </div>
-                </div>
+                </a>
 
             </div>
             <div class="row">
@@ -103,11 +78,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <%
-                                try {
-
-                                    Class.forName("com.mysql.jdbc.Driver");
-                                    conn = DriverManager.getConnection(url, user, pass);
+                            <%                                try {
                                     st = conn.createStatement();
                                     String sql = "SELECT * FROM cursojava.empleados;";
                                     rs = st.executeQuery(sql);
@@ -120,8 +91,17 @@
                                 <td><%= rs.getString(4)%></td>
                                 <td>
                                     <div class="d-flex justify-content-around">
-                                        <i class="btn btn-primary fa-solid fa-user-pen"></i>
-                                        <i class="btn btn-danger fa-solid fa-user-minus"></i>
+                                        <a href="Editar.jsp?id=<%=rs.getString(1)%>"
+                                           class="btn btn-primary">
+                                            <i class=" fa-solid fa-user-pen"></i>    
+                                        </a>
+                                        <a href="Borrar.jsp?id=<%=rs.getString(1)%>"
+                                           type="button" 
+                                           class="btn btn-danger">
+                                            <i class=" fa-solid fa-user-minus"></i>
+                                        </a>
+
+
                                     </div>
                                 </td>
                             </tr>

@@ -41,7 +41,7 @@
                 <form class="d-flex justify-content-around align-items-center" 
                       role="search"
                       action="Logout.jsp">
-                    <a href="" class="d-flex pr-3 fs-3">
+                    <a href="DatosUsuario.jsp" class="d-flex pr-3 fs-3">
                         <i class="fa-solid fa-user-ninja"></i>
                     </a>
                     <label class="px-3">
