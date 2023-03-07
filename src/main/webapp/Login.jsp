@@ -36,7 +36,7 @@
 
                 <form method="post" 
                       action="Login.jsp"
-                      class="mx-auto bg-light p-3 rounded"
+                      class="mx-auto bg-body-secondary p-3 rounded"
                       style="width: 25%;">
                     <h2 class="text-center fs-2 mb-3">Inicio de sesión</h2>
                     <div class="form-group">
@@ -44,6 +44,7 @@
                         <input name="user" 
                                class="form-control" 
                                placeholder="Usuario"
+                               autocomplete="off"
                                type="text">
                     </div>
                     <div class="form-group">

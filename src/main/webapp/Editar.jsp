@@ -48,8 +48,8 @@
             <div class=" d-flex justify-content-center align-items-center">
                 <form
                     actions="Editar.jsp"
-                    method="put"
-                    class="w-50">
+                    method="post"
+                    class="w-50 bg-body-secondary p-3 rounded">
                     <div class="mb-3">
                         <label for="nombre" class="form-label">Nombre:</label>
                         <input 
@@ -57,6 +57,7 @@
                             class="form-control" 
                             id="nombre"
                             name="nombre"
+                            autocomplete="off"
                             placeholder="Nombre"
                             value="<%= nombre%>"/>
                     </div>
@@ -66,6 +67,7 @@
                                class="form-control" 
                                id="direccion" 
                                name="direccion"
+                               autocomplete="off"
                                placeholder="Direccion"
                                value="<%= direccion%>"/>
                     </div>
@@ -75,6 +77,7 @@
                                class="form-control" 
                                id="telefono" 
                                name="telefono"
+                               autocomplete="off"
                                placeholder="Telefono"
                                value="<%= telefono%>"/>
                     </div>
