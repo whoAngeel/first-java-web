@@ -4,6 +4,10 @@
     Author     : whoangel
 --%>
 
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.sql.Statement"%>
+<%@page import="com.angel.javaweb.UConexion"%>
+<%@page import="java.sql.Connection"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -30,7 +34,8 @@
         <div class="container ">
             <div class="row align-items-center justify-content-center vh-100 ">
 
-                <form action="" 
+                <form method="post" 
+                      action="Login.jsp"
                       class="mx-auto bg-light p-3 rounded"
                       style="width: 25%;">
                     <h2 class="text-center fs-2 mb-3">Inicio de sesión</h2>
@@ -53,32 +58,54 @@
                         Ingresar
                     </button>
                 </form>
-                <%
-                 if(errorSesion == true){
-                 %>
-                 <div class="alert alert-danger rounded fixed-top w-50 mx-auto mt-1 text-center">
-                     Credenciales incorrectas
-                 </div>
-                    
-                <%
-                    }
-                %>
             </div>
         </div>
     </body>
+
     <%
+        Connection conn = UConexion.getConnection();
+        Statement stm = null;
+        ResultSet rs = null;
         if (request.getParameter("login") != null) {
             String user = request.getParameter("user");
             String password = request.getParameter("password");
             HttpSession sesion = request.getSession();
-            if (user.equals("admin") && password.equals("admin")) {
-                session.setAttribute("logueado", "1");
-                session.setAttribute("user", user);
-                errorSesion = false;
-                response.sendRedirect("index.jsp");
-            } else {
-                errorSesion = true;
+            try {
+                stm = conn.createStatement();
+                String sql = String.format("SELECT * FROM cursojava.user where user='%s' and password='%s';", user, password);
+                rs = stm.executeQuery(sql);
+                while (rs.next()) {
+                    sesion.setAttribute("logueado", 1);
+                    sesion.setAttribute("user", rs.getString("user"));
+                    sesion.setAttribute("id", rs.getString("id"));
+                    response.sendRedirect("index.jsp");
+                }
+    %>
+    <div class="alert alert-danger rounded fixed-top w-50 mx-auto mt-2 text-center">
+        Usuario no valido
+    </div>
+    <%
+    } catch (Exception e) {
+    %>
+    <div class="alert alert-warning rounded fixed-top w-50 mx-auto mt-2 text-center">
+        <%= e.getMessage() %>
+    </div>
+    <%
             }
         }
+        /*   
+if (request.getParameter("login") != null) {
+String user = request.getParameter("user");
+            
+if (user.equals("admin") && password.equals("admin")) {
+    session.setAttribute("logueado", "1");
+    session.setAttribute("user", user);
+    errorSesion = false;
+    response.sendRedirect("index.jsp");
+} else {
+    errorSesion = true;
+}
+}
+         */
     %>
 </html>

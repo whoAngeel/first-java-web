@@ -41,12 +41,13 @@
                 <form class="d-flex justify-content-around align-items-center" 
                       role="search"
                       action="Logout.jsp">
-                    <a href="DatosUsuario.jsp" class="d-flex pr-3 fs-3">
-                        <i class="fa-solid fa-user-ninja"></i>
+                    <a href="DatosUsuario.jsp" class="d-flex px-3 fs-3 text-decoration-none">
+                        <i class="fa-solid fa-user-ninja mx-2"></i>  
+                        <label class=" fs-5">
+                            <%= sesion.getAttribute("user")%>
+                        </label>
                     </a>
-                    <label class="px-3">
-                        <%= sesion.getAttribute("user")%>
-                    </label>
+
                     <button class="btn btn-danger ml-3" type="submit">Cerrar sesión</button>
                 </form>
             </div>

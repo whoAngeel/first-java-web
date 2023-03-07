@@ -30,7 +30,7 @@
                 <form action="" 
                       class="mx-auto bg-light p-3 rounded"
                       style="width: 25%;">
-                    <h2 class="text-center fs-2 mb-3"><i class="fa-solid fa-user"></i> <%= session.getAttribute("user") %></h2>
+                    <h2 class="text-center fs-2 mb-3"><i class="fa-solid fa-user"></i> <%= session.getAttribute("user")%></h2>
                     <div class="form-group">
                         <label for="">Nombre de usuario:</label>
                         <input name="user" 
@@ -52,17 +52,20 @@
                                placeholder="Contraseña"
                                class="form-control">
                     </div>
-                    
-                    <button class="btn btn-primary mt-3"
-                            name="guardar">
-                        Guardar
-                    </button>
+                    <div class="d-flex justify-content-end mt-3">
+                        <a href="index.jsp" class="btn">Cancelar</a>
+                        <button class="btn btn-primary "
+                                name="guardar">
+                            Guardar
+                        </button> 
+                    </div>
+
                 </form>
-                
+
             </div>
         </div>
-            <%
-                
-            %>
+        <%
+
+        %>
     </body>
 </html>
