@@ -48,7 +48,7 @@
             <div class=" d-flex justify-content-center align-items-center">
                 <form
                     actions="Editar.jsp"
-                    method="get"
+                    method="put"
                     class="w-50">
                     <div class="mb-3">
                         <label for="nombre" class="form-label">Nombre:</label>

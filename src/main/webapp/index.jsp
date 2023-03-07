@@ -4,6 +4,7 @@
     Author     : whoangel
 --%>
 
+<%@page import="com.angel.javaweb.UConexion"%>
 <%@page import="java.sql.*"%>
 <%@page import="com.mysql.jdbc.Driver" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -21,20 +22,35 @@
     </head>
     <body>  
         <%
-            Connection conn = null;
+            HttpSession sesion = request.getSession();
+            if (sesion.getAttribute("logueado").equals("0") || session.getAttribute("logueado") == null) {
+                response.sendRedirect("Login.jsp");
+            }
+            Connection conn = UConexion.getConnection();
             Statement st = null;
             ResultSet rs = null;
             String url = "jdbc:mysql://localhost:3306/cursojava";
             String user = "root";
             String pass = "admin";
-            try {
-                Class.forName("com.mysql.jdbc.Driver");
-                conn = DriverManager.getConnection(url, user, pass);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+
 
         %>
+        <nav class="navbar bg-body-tertiary bg-light ">
+            <div class="container-fluid justify-content-around">
+                <a class="navbar-brand">Empleados</a>
+                <form class="d-flex justify-content-around align-items-center" 
+                      role="search"
+                      action="Logout.jsp">
+                    <a href="" class="d-flex pr-3 fs-3">
+                        <i class="fa-solid fa-user-ninja"></i>
+                    </a>
+                    <label class="px-3">
+                        <%= sesion.getAttribute("user")%>
+                    </label>
+                    <button class="btn btn-danger ml-3" type="submit">Cerrar sesión</button>
+                </form>
+            </div>
+        </nav>
         <div class="container mt-5 mx-auto w-75">
             <div class="row mb-2 mx-auto">
                 <!-- Button trigger modal -->
