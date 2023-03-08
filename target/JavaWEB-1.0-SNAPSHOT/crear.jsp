@@ -23,19 +23,23 @@
                 <form
                     actions="crear.jsp"
                     method="post"
-                    class="w-50">
+                    class="w-50 bg-body-secondary p-3 rounded">
                     <div class="mb-3">
                         <label for="nombre" class="form-label">Nombre:</label>
                         <input 
                             type="text" 
                             class="form-control" 
                             id="nombre"
+                            placeholder="Nombre"
+                            autocomplete="off"
                             name="nombre"/>
                     </div>
                     <div class="mb-3">
                         <label for="direccion" class="form-label">Direccion:</label>
                         <input type="text" 
-                               class="form-control" 
+                               class="form-control"
+                               placeholder="Direccion"
+                               autocomplete="off"
                                id="direccion" 
                                name="direccion"/>
                     </div>

@@ -35,7 +35,7 @@
 
 
         %>
-        <nav class="navbar bg-body-tertiary bg-light ">
+        <nav class="navbar bg-body-tertiary bg-primary-subtle">
             <div class="container-fluid justify-content-around">
                 <a class="navbar-brand">Empleados</a>
                 <form class="d-flex justify-content-around align-items-center" 
