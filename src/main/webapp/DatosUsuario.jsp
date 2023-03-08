@@ -4,6 +4,7 @@
     Author     : whoangel
 --%>
 
+<%@page import="utils.EncriptarMD5"%>
 <%@page import="java.math.BigInteger"%>
 <%@page import="java.security.MessageDigest"%>
 <%@page import="java.sql.Statement"%>
@@ -30,6 +31,7 @@
             }
             Connection conn = UConexion.getConnection();
             Statement stm = null;
+            EncriptarMD5 md5 = new EncriptarMD5();
 
         %>
         <div class="container ">
@@ -86,7 +88,7 @@
                 if (pass1.equals(pass2)) {
                     try {
                         stm = conn.createStatement();
-                        String sql = String.format("update user set user='%s', password='%s' where id='%s';", user, getMD5(pass1), sesion.getAttribute("id"));
+                        String sql = String.format("update user set user='%s', password='%s' where id='%s';", user, md5.getMD5(pass1), sesion.getAttribute("id"));
                         int res = stm.executeUpdate(sql);
                         if (res >= 1) {
                             sesion.setAttribute("user", user);
@@ -115,19 +117,3 @@
         %>
     </body>
 </html>
-<%!
-    public String getMD5(String input) {
-        try {
-            MessageDigest md = MessageDigest.getInstance("MD5");
-            byte[] cryptBytes = md.digest(input.getBytes());
-            BigInteger numero = new BigInteger(1, cryptBytes);
-            String cryptString = numero.toString(16);
-            while (cryptString.length() < 32) {
-                cryptString = "0" + cryptString;
-            }
-            return cryptString;
-        } catch (Exception e) {
-            throw new RuntimeException(e.getMessage());
-        }
-    }
-%>

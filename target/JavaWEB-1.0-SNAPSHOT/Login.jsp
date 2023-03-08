@@ -4,8 +4,7 @@
     Author     : whoangel
 --%>
 
-<%@page import="java.math.BigInteger"%>
-<%@page import="java.security.MessageDigest"%>
+<%@page import="utils.EncriptarMD5"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.Statement"%>
 <%@page import="com.angel.javaweb.UConexion"%>
@@ -24,6 +23,7 @@
     <body>
         <%
             boolean errorSesion = false;
+            EncriptarMD5 encriptarMD5 = new EncriptarMD5();
         %>
         <style>
             label {
@@ -88,7 +88,7 @@
             HttpSession sesion = request.getSession();
             try {
                 stm = conn.createStatement();
-                String sql = String.format("SELECT * FROM cursojava.user where user='%s' and password='%s';", user, getMD5(password));
+                String sql = String.format("SELECT * FROM cursojava.user where user='%s' and password='%s';", user, encriptarMD5.getMD5(password));
                 rs = stm.executeQuery(sql);
                 while (rs.next()) {
                     sesion.setAttribute("logueado", 1);
@@ -113,20 +113,3 @@
 
     %>
 </html>
-
-<%!
-    public String getMD5(String input) {
-        try {
-            MessageDigest md = MessageDigest.getInstance("MD5");
-            byte[] cryptBytes = md.digest(input.getBytes());
-            BigInteger numero = new BigInteger(1, cryptBytes);
-            String cryptString = numero.toString(16);
-            while (cryptString.length() < 32) {
-                cryptString = "0" + cryptString;
-            }
-            return cryptString;
-        } catch (Exception e) {
-            throw new RuntimeException(e.getMessage());
-        }
-    }
-%>

@@ -4,6 +4,7 @@
     Author     : whoangel
 --%>
 
+<%@page import="com.angel.javaweb.UConexion"%>
 <%@page import="java.sql.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -62,11 +63,9 @@
                 String nombre = request.getParameter("nombre");
                 String direccion = request.getParameter("direccion");
                 String telefono = request.getParameter("telefono");
+                Connection con = UConexion.getConnection();
+                Statement st = null;
                 try {
-                    Connection con = null;
-                    Statement st = null;
-                    Class.forName("com.mysql.jdbc.Driver");
-                    con = DriverManager.getConnection("jdbc:mysql://localhost/cursojava", "root", "admin");
                     st = con.createStatement();
                     String sql = String.format("insert into empleados (nombre, direccion, telefono) values ('%s','%s','%s');", nombre, direccion, telefono);
                     st.executeUpdate(sql);

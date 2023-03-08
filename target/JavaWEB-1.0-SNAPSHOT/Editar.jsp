@@ -4,6 +4,7 @@
     Author     : whoangel
 --%>
 
+<%@page import="com.angel.javaweb.UConexion"%>
 <%@page import="java.sql.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -23,12 +24,11 @@
             String direccion = "";
             String telefono = "";
             String id = request.getParameter("id");
-            Connection con = null;
+            Connection con = UConexion.getConnection();
             Statement st = null;
             PreparedStatement pst = null;
             ResultSet rs = null;
-            Class.forName("com.mysql.jdbc.Driver");
-            con = DriverManager.getConnection("jdbc:mysql://localhost/cursojava", "root", "admin");
+            
             try {
                 st = con.createStatement();
                 rs = st.executeQuery("select * from empleados where id=" + id + ";");

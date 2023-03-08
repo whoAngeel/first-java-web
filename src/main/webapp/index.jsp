@@ -22,6 +22,7 @@
     </head>
     <body>  
         <%
+
             HttpSession sesion = request.getSession();
             if (sesion.getAttribute("logueado").equals("0") || session.getAttribute("logueado") == null) {
                 response.sendRedirect("Login.jsp");
