@@ -4,6 +4,8 @@
     Author     : whoangel
 --%>
 
+<%@page import="java.math.BigInteger"%>
+<%@page import="java.security.MessageDigest"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.Statement"%>
 <%@page import="com.angel.javaweb.UConexion"%>
@@ -27,17 +29,30 @@
             label {
                 margin-bottom: 5px;
             }
-            form {
-                width: 30%;
+            @media (min-width: 576px) {
+                .login-form{
+                    width: 50%;
+                }
             }
+            @media(min-width: 768px){
+                .login-form{
+                    width: 40%;
+                }
+            }
+            @media (min-width: 992px) {
+                .login-form{
+                    width: 30%;
+                }
+            }
+
+
         </style>
         <div class="container ">
             <div class="row align-items-center justify-content-center vh-100 ">
 
                 <form method="post" 
                       action="Login.jsp"
-                      class="mx-auto bg-body-secondary p-3 rounded"
-                      style="width: 25%;">
+                      class="mx-auto bg-body-secondary p-3 rounded login-form">
                     <h2 class="text-center fs-2 mb-3">Inicio de sesión</h2>
                     <div class="form-group">
                         <label for="">Nombre de usuario:</label>
@@ -73,7 +88,7 @@
             HttpSession sesion = request.getSession();
             try {
                 stm = conn.createStatement();
-                String sql = String.format("SELECT * FROM cursojava.user where user='%s' and password='%s';", user, password);
+                String sql = String.format("SELECT * FROM cursojava.user where user='%s' and password='%s';", user, getMD5(password));
                 rs = stm.executeQuery(sql);
                 while (rs.next()) {
                     sesion.setAttribute("logueado", 1);
@@ -89,24 +104,29 @@
     } catch (Exception e) {
     %>
     <div class="alert alert-warning rounded fixed-top w-50 mx-auto mt-2 text-center">
-        <%= e.getMessage() %>
+        <%= e.getMessage()%>
     </div>
     <%
             }
         }
-        /*   
-if (request.getParameter("login") != null) {
-String user = request.getParameter("user");
-            
-if (user.equals("admin") && password.equals("admin")) {
-    session.setAttribute("logueado", "1");
-    session.setAttribute("user", user);
-    errorSesion = false;
-    response.sendRedirect("index.jsp");
-} else {
-    errorSesion = true;
-}
-}
-         */
+
+
     %>
 </html>
+
+<%!
+    public String getMD5(String input) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            byte[] cryptBytes = md.digest(input.getBytes());
+            BigInteger numero = new BigInteger(1, cryptBytes);
+            String cryptString = numero.toString(16);
+            while (cryptString.length() < 32) {
+                cryptString = "0" + cryptString;
+            }
+            return cryptString;
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
+    }
+%>
