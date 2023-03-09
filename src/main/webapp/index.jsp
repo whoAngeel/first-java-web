@@ -4,9 +4,7 @@
     Author     : whoangel
 --%>
 
-<%@page import="com.angel.javaweb.UConexion"%>
-<%@page import="java.sql.*"%>
-<%@page import="com.mysql.jdbc.Driver" %>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -27,13 +25,7 @@
             if (sesion.getAttribute("logueado").equals("0") || session.getAttribute("logueado") == null) {
                 response.sendRedirect("Login.jsp");
             }
-            Connection conn = UConexion.getConnection();
-            Statement st = null;
-            ResultSet rs = null;
-            String url = "jdbc:mysql://localhost:3306/cursojava";
-            String user = "root";
-            String pass = "admin";
-
+            
 
         %>
         <nav class="navbar bg-body-tertiary bg-primary-subtle">
@@ -80,41 +72,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <%                                try {
-                                    st = conn.createStatement();
-                                    String sql = "SELECT * FROM cursojava.empleados;";
-                                    rs = st.executeQuery(sql);
-                                    while (rs.next()) {
-                            %>
-                            <tr>
-                                <th scope="row"> <%= rs.getString(1)%></th>
-                                <td><%= rs.getString(2)%></td>
-                                <td><%= rs.getString(3)%></td>
-                                <td><%= rs.getString(4)%></td>
-                                <td>
-                                    <div class="d-flex justify-content-around">
-                                        <a href="Editar.jsp?id=<%=rs.getString(1)%>"
-                                           class="btn btn-primary">
-                                            <i class=" fa-solid fa-user-pen"></i>    
-                                        </a>
-                                        <a href="Borrar.jsp?id=<%=rs.getString(1)%>"
-                                           type="button" 
-                                           class="btn btn-danger">
-                                            <i class=" fa-solid fa-user-minus"></i>
-                                        </a>
-
-
-                                    </div>
-                                </td>
-                            </tr>
-                            <%
-                                    }
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                }
-                            %>
-
-
+                            <jsp:include page="Empleados"/>
                         </tbody>
                     </table>
                 </div>
