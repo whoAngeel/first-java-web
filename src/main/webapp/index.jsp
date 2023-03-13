@@ -25,7 +25,7 @@
             if (sesion.getAttribute("logueado").equals("0") || session.getAttribute("logueado") == null) {
                 response.sendRedirect("Login.jsp");
             }
-            
+
 
         %>
         <nav class="navbar bg-body-tertiary bg-primary-subtle">
@@ -55,26 +55,42 @@
             </div>
             <div class="row">
                 <div class="col-sm">
-                    <table class="table table-hover table-sm">
-                        <thead>
-                            <tr class="text-center bg-primary text-light">
-                                <th scope="col" colspan="4" >Empleados</th>
-                                <th scope="col">
-                                    <i class="fa-solid fa-users"></i>
-                                </th>
-                            </tr>
-                            <tr>
-                                <th scope="col">ID</th>
-                                <th scope="col">Nombre</th>
-                                <th scope="col">Direccion</th>
-                                <th scope="col">telefono</th>
-                                <th scope="col">Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <jsp:include page="Empleados"/>
-                        </tbody>
-                    </table>
+                    <form action="index.jsp">
+
+                        <table class="table table-hover table-sm">
+                            <thead>
+                                <tr class="text-center bg-primary text-light my-auto">
+                                    <th scope="col"  >
+                                        <i class="fa-solid fa-magnifying-glass"></i>
+                                    </th>
+                                    <th scope="col">
+                                        <input type="text" n
+                                               name="nombre" 
+                                               class="form-control"
+                                               placeholder="Nombre"
+                                               autocomplete="off">
+                                    </th>
+                                    <th>
+                                        <input type="submit" value="Buscar" class="btn btn-light" name="buscar">
+                                    </th>
+                                    <th></th>
+                                    <th scope="col">
+                                        <i class="fa-solid fa-users"></i>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th scope="col">ID</th>
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col">Direccion</th>
+                                    <th scope="col">telefono</th>
+                                    <th scope="col">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <jsp:include page="Empleados"/>
+                            </tbody>
+                        </table>
+                    </form>   
                 </div>
             </div>
             <div class="row">

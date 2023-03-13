@@ -36,11 +36,18 @@ public class Empleados extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
 
         try ( PrintWriter out = response.getWriter()) {
             st = conn.createStatement();
-            String sql = "SELECT * FROM cursojava.empleados;";
-            rs = st.executeQuery(sql);
+            String query = "SELECT * FROM empleados ";
+            String where = " where 1=1 ";
+            String nombre = request.getParameter("nombre");
+            if(nombre!=null || nombre==""){
+                where = where + " and nombre='"+ nombre +"';";
+            }
+            query = query + where;
+            rs = st.executeQuery(query);
             while (rs.next()) {
                 try {
                     out.print("<tr>"
